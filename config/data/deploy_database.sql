@@ -1,5 +1,3 @@
-CREATE DATABASE mymarket;
-
 use mymarket;
 
 CREATE TABLE bank_transfer_information (
