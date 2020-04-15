@@ -1,10 +1,9 @@
-use mymarket;
 
 CREATE TABLE bank_transfer_information (
   id INT AUTO_INCREMENT PRIMARY KEY,
   bank_code TEXT,
   account_number TEXT,
-  beneficiary_name datetime NOT NULL
+  beneficiary_name TEXT NOT NULL
   );
 
 
