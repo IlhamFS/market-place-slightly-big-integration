@@ -1,8 +1,8 @@
 <?php
 // required headers
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-
+header("Access-Control-Allow-Methods: GET");
+header("Access-Control-Allow-Credentials: true");
+header('Content-Type: application/json');
 // include database and object files
 include_once '../config/db.php';
 include_once '../objects/disbursement.php';
@@ -40,11 +40,12 @@ if($num>0){
             "status" => html_entity_decode($description),
             "timestamp" => $timestamp,
             "remark" => $remark,
+            "bank_code" => $bank_code,
+            "account_number" => $account_number,
+            "beneficiary_name" => $beneficiary_name,
             "receipt" => $receipt,
             "time_served" => $time_served,
             "fee" => $fee,
-            "bank_transfer_information_id" => $bank_transfer_information_id
-
         );
 
         array_push($disbursements_arr["records"], $disbursement_item);

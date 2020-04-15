@@ -29,8 +29,8 @@ class Disbursement{
     //R
     public function read(){
      // select all query
-        $query = "SELECT id, amount, status, timestamp, remark, receipt, time_served, fee, bank_transfer_information_id
-                  FROM disbursement;";
+        $query = "SELECT d.id, d.amount, d.status, d.timestamp, b.bank_code, b.account_number, b.beneficiary_name, d.remark, d.receipt, d.time_served, d.fee, d.bank_transfer_information_id
+                  FROM disbursement d JOIN bank_transfer_information b ON bank_transfer_information_id = b.id;";
 
         // prepare query statement
         $stmt = $this->connection->prepare($query);
