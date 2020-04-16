@@ -7,6 +7,7 @@ header('Content-Type: application/json');
 // include database and object files
 include_once '../../config/db.php';
 include_once '../../objects/disbursement.php';
+include_once '../utils/api_utils.php';
 
 // instantiate database and disbursement object
 $database = new Database();
@@ -18,20 +19,12 @@ $disbursement = new Disbursement($db);
 // Get raw posted data
 $request = json_decode(file_get_contents("php://input"));
 
-$response = new StdClass();
-// Mock
-$response->id = 55351525642;
-$response->amount = 10000;
-$response->status = "SUCCESS";
-$response->timestamp = "2019-05-21 09:12:42";
-$response->remark = "sample remark";
-$response->bank_code = "bni";
-$response->account_number = "1234567890";
-$response->beneficiary_name = "PT FLIP";
-$response->receipt = "MOCK RECEIPT";
-$response->time_served = "2019-05-21 09:26:11";
-$response->fee = 4000;
-
+$response = json_decode(call_api('GET', 'https://nextar.flip.id/disburse/'. $request->transaction_id,
+                                 false));
+if ($response == null) {
+    echo json_encode(array('message' => 'Error when pulling data from 3rd party.'));
+    die();
+}
 // Get ID
 $disbursement->id = $request->transaction_id;
 
