@@ -20,7 +20,7 @@ $stmt = $disbursement->read();
 $num = $stmt->rowCount();
 
 // check if more than 0 record found
-if($num>0){
+if($num > 0){
 
     // disbursements array
     $disbursements_arr=array();
