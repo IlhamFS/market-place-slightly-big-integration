@@ -5,8 +5,8 @@ header("Access-Control-Allow-Methods: GET");
 header("Access-Control-Allow-Credentials: true");
 header('Content-Type: application/json');
 // include database and object files
-include_once '../config/db.php';
-include_once '../objects/disbursement.php';
+include_once '../../config/db.php';
+include_once '../../objects/disbursement.php';
 
 // instantiate database and disbursement object
 $database = new Database();
@@ -38,7 +38,7 @@ if($num>0){
         $disbursement_item=array(
             "id" => $id,
             "amount" => $amount,
-            "status" => html_entity_decode($description),
+            "status" => html_entity_decode($status),
             "timestamp" => $timestamp,
             "remark" => $remark,
             "bank_code" => $bank_code,

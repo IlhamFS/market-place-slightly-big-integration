@@ -13,10 +13,12 @@ class Disbursement{
     public $status;
     public $timestamp;
     public $remark;
+    public $bank_code;
+    public $account_number;
+    public $beneficiary_name;
     public $receipt;
     public $time_served;
     public $fee;
-    public $bank_transfer_information_id;
 
     public function __construct($connection){
         $this->connection = $connection;
@@ -38,10 +40,10 @@ class Disbursement{
         $this->amount = htmlspecialchars(strip_tags($this->amount));
         $this->status = htmlspecialchars(strip_tags($this->status));
         $this->timestamp = htmlspecialchars(strip_tags($this->timestamp));
+        $this->remark = htmlspecialchars(strip_tags($this->remark));
         $this->bank_code = htmlspecialchars(strip_tags($this->bank_code));
         $this->account_number = htmlspecialchars(strip_tags($this->account_number));
         $this->beneficiary_name = htmlspecialchars(strip_tags($this->beneficiary_name));
-        $this->remark = htmlspecialchars(strip_tags($this->remark));
         $this->receipt = htmlspecialchars(strip_tags($this->receipt));
         $this->time_served = htmlspecialchars(strip_tags($this->time_served));
         $this->fee = htmlspecialchars(strip_tags($this->fee));
@@ -51,10 +53,10 @@ class Disbursement{
         $stmt->bindParam(":amount", $this->amount);
         $stmt->bindParam(":status", $this->status);
         $stmt->bindParam(":timestamp", $this->timestamp);
+        $stmt->bindParam(":remark", $this->remark);
         $stmt->bindParam(":bank_code", $this->bank_code);
         $stmt->bindParam(":account_number", $this->account_number);
         $stmt->bindParam(":beneficiary_name", $this->beneficiary_name);
-        $stmt->bindParam(":remark", $this->remark);
         $stmt->bindParam(":receipt", $this->receipt);
         $stmt->bindParam(":time_served", $this->time_served);
         $stmt->bindParam(":fee", $this->fee);
