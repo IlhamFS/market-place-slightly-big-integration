@@ -29,8 +29,10 @@ class Disbursement{
         // query to insert record
         $query = "INSERT INTO
                     " . $this->table_name . "
-                SET
-                    id=:id, amount=:amount, status=:status, timestamp=:timestamp, remark=:remark, receipt=:receipt, time_served=:time_served, fee=:fee, bank_transfer_information_id=:bank_transfer_information_id;";
+                (id, amount, status, timestamp, bank_code, account_number, beneficiary_name, remark, receipt, time_served, fee)
+                    VALUES (:id, :amount, :status, :timestamp, :bank_code,
+                    :account_number, :beneficiary_name, :remark,
+                    :receipt, :time_served, :fee);";
 
         // prepare query
         $stmt = $this->connection->prepare($query);
@@ -47,7 +49,6 @@ class Disbursement{
         $this->receipt = htmlspecialchars(strip_tags($this->receipt));
         $this->time_served = htmlspecialchars(strip_tags($this->time_served));
         $this->fee = htmlspecialchars(strip_tags($this->fee));
-
         // bind values
         $stmt->bindParam(":id", $this->id);
         $stmt->bindParam(":amount", $this->amount);
@@ -65,13 +66,12 @@ class Disbursement{
         if($stmt->execute()){
             return true;
         }
-
         return false;
     }
     //R
     public function read(){
      // select all query
-        $query = "SELECT d.id, d.amount, d.status, d.timestamp, d.bank_code, d.account_number, d.beneficiary_name, d.remark, d.receipt, d.time_served, d.fee, d.bank_transfer_information_id
+        $query = "SELECT d.id, d.amount, d.status, d.timestamp, d.bank_code, d.account_number, d.beneficiary_name, d.remark, d.receipt, d.time_served, d.fee
                   FROM disbursement d;";
 
         // prepare query statement

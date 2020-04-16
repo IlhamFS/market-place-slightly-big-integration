@@ -1,5 +1,5 @@
 CREATE TABLE disbursement (
-  id INT PRIMARY KEY,
+  id BIGINT PRIMARY KEY,
   amount FLOAT,
   status TEXT,
   timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -9,10 +9,5 @@ CREATE TABLE disbursement (
   remark TEXT,
   receipt TEXT,
   time_served TEXT NOT NULL,
-  fee FLOAT,
-  bank_transfer_information_id INT,
-  CONSTRAINT fk_bank_transfer_information
-  FOREIGN KEY (bank_transfer_information_id)
-          REFERENCES bank_transfer_information(id)
-          ON DELETE CASCADE
+  fee FLOAT
 );
