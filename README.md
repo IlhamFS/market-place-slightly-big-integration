@@ -36,7 +36,8 @@ Code related to object abstraction for the api. For no, it's for `disbursement` 
 ## How To Run
 ### Prerequisites:
 1. PHP >= 7.3.9 Installed (I use PHP 7.3.9 and cannot ensure other version compatibility)
-2. Make sure to clone this repo and you are in the repo folder (market-place-slightly-big-integration)
+2. MySql Installed (Mine is Ver 8.0.19).
+3. Make sure to clone this repo and you are in the repo folder (market-place-slightly-big-integration)
 
 ### Set Up:
 Database setup.
@@ -48,4 +49,23 @@ cd ..
 ### Run:
 ```
 php -S 0.0.0.0:8080
+```
+#### Problem 1: Send Disbursement Data and Saved it to Database
+Run this in your terminal (different terminal from the one you run `php -S 0.0.0.0:8080`) / use Postman:
+```
+curl --header "Content-Type: application/json" -d "{\"bank_code\":\"bni\", \"account_number\":\"123\", \"amount\": 1000, \"remark\":\"TEST\"}" http://0.0.0.0:8080/api/disbursement/disburse.php
+``` 
+#### Problem 2: Check Inserted Data
+Run this in your terminal (different terminal from the one you run `php -S 0.0.0.0:8080`) / use Postman:
+```
+curl http://0.0.0.0:8080/api/disbursement/read.php
+``` 
+#### Problem 3: Check Status and Update Data
+Run this in your terminal (different terminal from the one you run `php -S 0.0.0.0:8080`) / use Postman, please feel `{transaction_id}` (without `{` and `}`) with one of the id from transaction data which you can see using API from problem 2:
+```
+curl --header "Content-Type: application/json" -d "{\"transaction_id\":{transaction_id}}" http://0.0.0.0:8080/api/disbursement/update.php
+``` 
+For example:
+```
+curl --header "Content-Type: application/json" -d "{\"transaction_id\":6236433201}" http://0.0.0.0:8080/api/disbursement/update.php
 ```
