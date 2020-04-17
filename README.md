@@ -50,6 +50,7 @@ Setting db user:
 5. Back to top folder `cd ..`
 
 ### Run:
+Make sure you are in the top repo folder (market-place-slightly-big-integration/)
 ```
 php -S 0.0.0.0:8080
 ```
