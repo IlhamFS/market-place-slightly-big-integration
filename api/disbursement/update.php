@@ -19,7 +19,7 @@ $disbursement = new Disbursement($db);
 // Get raw posted data
 $request = json_decode(file_get_contents("php://input"));
 
-$response = json_decode(call_api('GET', 'https://nextar.flip.id/disburse/'. $request->transaction_id,
+$response = json_decode(callAPI('GET', 'https://nextar.flip.id/disburse/'. $request->transaction_id,
                                  false));
 if ($response == null) {
     echo json_encode(array('message' => 'Error when pulling data from 3rd party.'));

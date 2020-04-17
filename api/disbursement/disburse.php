@@ -20,9 +20,12 @@ $db = $database->getConnection();
 $disbursement = new Disbursement($db);
 
 $request = json_decode(file_get_contents('php://input'));
-$response = json_decode(call_api('POST', 'https://nextar.flip.id/disburse',
-                                 array('bank_code' => $request->bank_code, 'account_number' => $request->account_number,
-                                 'amount' => $request->amount, 'remark' => $request->remark)));
+$response = json_decode(callAPI(
+    'POST',
+    'https://nextar.flip.id/disburse',
+    array('bank_code' => $request->bank_code, 'account_number' => $request->account_number,
+                                 'amount' => $request->amount, 'remark' => $request->remark)
+));
 
 $disbursement->id = $response->id;
 $disbursement->amount = $response->amount;
@@ -37,7 +40,7 @@ $disbursement->time_served = $response->time_served;
 $disbursement->fee = $response->fee;
 
 // create the disbursement
-if($disbursement->create()){
+if ($disbursement->create()) {
 
     // set response code - 201 created
     http_response_code(201);
@@ -47,7 +50,7 @@ if($disbursement->create()){
 }
 
 // if unable to create the Disbursement, tell the user
-else{
+else {
 
     // set response code - 503 service unavailable
     http_response_code(503);
@@ -55,5 +58,3 @@ else{
     // tell the user
     echo json_encode(array('message' => 'Unable to create disbursement.'));
 }
-
-?>
