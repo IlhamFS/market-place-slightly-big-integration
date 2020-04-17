@@ -39,13 +39,14 @@ Code related to object abstraction for the api. For no, it's for `disbursement` 
 2. MySql Installed (Mine is Ver 8.0.19).
 3. Make sure to clone this repo and you are in the repo folder (market-place-slightly-big-integration)
 
-### Set Up:
-Database setup.
-```
-cd config
-php migration.php
-cd ..
-```
+### Database Set Up:
+Setting db user:
+1. `cd config`
+2. open `db.php` with text editor or `nano`
+3. change value in `$username` and `$password` to your mysql root user or user that has enough privileges.
+4. Run `php migration.php`
+5. Back to top folder `cd ..`
+
 ### Run:
 ```
 php -S 0.0.0.0:8080
