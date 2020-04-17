@@ -42,13 +42,13 @@ Code related to object abstraction for the api. For now, it's for `disbursement`
 2. MySql Installed (Mine is Ver 8.0.19).
 3. Make sure to clone this repo and you are in the repo folder (market-place-slightly-big-integration)
 
-### Database Set Up:
+### Database Set Up in Config File:
 Setting db user:
 1. `cd config`
-2. open `db.php` with text editor or `nano`
-3. change value in `$username` and `$password` to your mysql root user or user that has enough privileges.
-4. Run `php migration.php`
-5. Back to top folder `cd ..`
+2. open `app.ini` with text editor or `nano`.
+3. change value in the config file according to your mysql host and a user that has enough privileges. The default database is `mymarket`, so make sure you don't have similar database in your local.
+4. Run `php migration.php`, it will create database and table.
+5. Back to top folder `cd ..`.
 
 ### Run:
 Make sure you are in the top repo folder (market-place-slightly-big-integration/)
@@ -94,7 +94,7 @@ When you run `curl http://0.0.0.0:8080/api/disbursement/read.php`, you can see t
 ```
 ### Revert Database
 1. `cd config`
-2. open `db.php` with text editor or `nano`
-3. change value in `$username` and `$password` to your mysql root user or user that has enough privileges.
+2. open `app.ini` with text editor or `nano`.
+3. change value in the config file according to your mysql host and a user that has enough privileges.
 4. Run `php revert.php`
 5. Back to top folder `cd ..`
