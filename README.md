@@ -90,3 +90,9 @@ When you run `curl http://0.0.0.0:8080/api/disbursement/read.php`, you can see t
 ```
 {"disbursements":[{"id":"8586634721","amount":"1000","status":"PENDING","timestamp":"2020-04-17 11:48:07","remark":"TEST","bank_code":"bni","account_number":"123","beneficiary_name":"PT FLIP","receipt":"https:\/\/flip-receipt.oss-ap-southeast-5.aliyuncs.com\/debit_receipt\/126316_3d07f9fef9612c7275b3c36f7e1e5762.jpg","time_served":"2020-04-17 11:49:48","fee":"4000"}]}
 ```
+### Revert Database
+1. `cd config`
+2. open `db.php` with text editor or `nano`
+3. change value in `$username` and `$password` to your mysql root user or user that has enough privileges.
+4. Run `php revert.php`
+5. Back to top folder `cd ..`
