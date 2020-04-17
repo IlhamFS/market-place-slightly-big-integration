@@ -2,12 +2,12 @@ CREATE TABLE disbursement (
   id BIGINT PRIMARY KEY,
   amount FLOAT,
   status TEXT,
-  timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   bank_code TEXT,
   account_number TEXT,
-  beneficiary_name TEXT NOT NULL,
+  beneficiary_name TEXT,
   remark TEXT,
   receipt TEXT,
-  time_served TEXT NOT NULL,
+  time_served TEXT,
   fee FLOAT
 );
