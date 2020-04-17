@@ -13,7 +13,8 @@
   * receipt
   * time_served
 * You must use git when working on the project
-
+## NOTES
+Please contact me at `ilhamfathys@gmail.com` if you have difficulties running this demo.
 ## Folder Structure
 ```
 /api/disbursement/*
