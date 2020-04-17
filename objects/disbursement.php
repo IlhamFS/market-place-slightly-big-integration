@@ -1,5 +1,6 @@
 <?php
-class Disbursement{
+class Disbursement
+{
 
     // Connection instance
     private $connection;
@@ -20,11 +21,13 @@ class Disbursement{
     public $time_served;
     public $fee;
 
-    public function __construct($connection){
+    public function __construct($connection)
+    {
         $this->connection = $connection;
     }
 
-    public function create(){
+    public function create()
+    {
         // query to insert record
         $query = "INSERT INTO
                     " . $this->table_name . "
@@ -62,13 +65,14 @@ class Disbursement{
         $stmt->bindParam(":fee", $this->fee);
 
         // execute query
-        if($stmt->execute()){
+        if ($stmt->execute()) {
             return true;
         }
         return false;
     }
 
-    public function read(){
+    public function read()
+    {
         // select all query
         $query = "SELECT d.id, d.amount, d.status, d.timestamp, d.bank_code, d.account_number, d.beneficiary_name, d.remark, d.receipt, d.time_served, d.fee
                   FROM " . $this->table_name . " d;";
@@ -82,7 +86,8 @@ class Disbursement{
         return $stmt;
     }
 
-    public function update(){
+    public function update()
+    {
         // Create Query
         $query = "UPDATE " .$this->table_name. " SET status = :status, receipt = :receipt, time_served = :time_served
           WHERE id = :id;";
@@ -102,13 +107,14 @@ class Disbursement{
         $stmt-> bindParam(':time_served', $this->time_served);
 
         // Execute query
-        if($stmt->execute()) {
+        if ($stmt->execute()) {
             return true;
         }
         return false;
     }
 
-    public function read_single(){
+    public function read_single()
+    {
         // select all query
         $query = "SELECT d.id, d.amount, d.status, d.timestamp,
                          d.bank_code, d.account_number, d.beneficiary_name, d.remark, d.receipt, d.time_served, d.fee
@@ -119,7 +125,7 @@ class Disbursement{
 
         $stmt->bindParam(":id", $this->id);
         // execute query
-        if(!$stmt->execute() and $stmt->rowCount() == 0) {
+        if (!$stmt->execute() and $stmt->rowCount() == 0) {
             return false;
         }
 
@@ -138,5 +144,5 @@ class Disbursement{
         $this->time_served = $row['time_served'];
         $this->fee = $row['fee'];
         return true;
-     }
+    }
 }

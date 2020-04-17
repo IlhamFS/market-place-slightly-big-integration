@@ -19,8 +19,11 @@ $disbursement = new Disbursement($db);
 // Get raw posted data
 $request = json_decode(file_get_contents("php://input"));
 
-$response = json_decode(callAPI('GET', 'https://nextar.flip.id/disburse/'. $request->transaction_id,
-                                 false));
+$response = json_decode(callAPI(
+    'GET',
+    'https://nextar.flip.id/disburse/'. $request->transaction_id,
+    false
+));
 if ($response == null) {
     echo json_encode(array('message' => 'Error when pulling data from 3rd party.'));
     die();
@@ -36,19 +39,17 @@ if ($disbursement->read_single()) {
     $disbursement->time_served = $response->time_served;
 
     // Update post
-    if($disbursement->update()) {
+    if ($disbursement->update()) {
         echo json_encode(
-          array('message' => 'Disbursement Updated', 'disbursement' => $disbursement)
+            array('message' => 'Disbursement Updated', 'disbursement' => $disbursement)
         );
     } else {
         echo json_encode(
-          array('message' => 'Disbursement not updated')
+            array('message' => 'Disbursement not updated')
         );
     }
 } else {
-  echo json_encode(
-          array('message' => 'Disbursement not exists')
-        );
+    echo json_encode(
+        array('message' => 'Disbursement not exists')
+    );
 }
-
-?>
