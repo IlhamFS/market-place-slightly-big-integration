@@ -23,7 +23,7 @@ if ($num > 0) {
 
     // disbursements array
     $disbursements_arr=array();
-    $disbursements_arr["records"]=array();
+    $disbursements_arr["disbursements"]=array();
 
     // retrieve our table contents
     // fetch() is faster than fetchAll()
@@ -48,7 +48,7 @@ if ($num > 0) {
             "fee" => $fee,
         );
 
-        array_push($disbursements_arr["records"], $disbursement_item);
+        array_push($disbursements_arr["disbursements"], $disbursement_item);
     }
 
     // set response code - 200 OK

@@ -1,4 +1,4 @@
-#A Market Place and Slightly Big Flip Integration
+# A Market Place and Slightly Big Flip Integration
 ## Problem Statement
 1. Your service will send the disbursement data to the 3rd party API
 2. Your service will then, save the detailed data about the disbursement from the 3rd party, in your local database
@@ -18,20 +18,22 @@
 ```
 /api/disbursement/*
 ```
+
 Code related to disburse API implementation. There are 3 APIs: read, disburse, and update.
 ```
-/api/utlis/*
+/api/utils/*
 ```
 Code related to API utilities. For now, just a wrapper to call 3rd party api.
-
 ```
 /config/*
 ```
+
 Code related to database setup.
 ```
 /objects/*
 ```
-Code related to object abstraction for the api. For no, it's for `disbursement` object only.
+
+Code related to object abstraction for the api. For now, it's for `disbursement` object only.
 
 ## How To Run
 ### Prerequisites:
@@ -51,22 +53,40 @@ Setting db user:
 ```
 php -S 0.0.0.0:8080
 ```
+### How To and Examples
 #### Problem 1: Send Disbursement Data and Saved it to Database
 Run this in your terminal (different terminal from the one you run `php -S 0.0.0.0:8080`) / use Postman:
 ```
 curl --header "Content-Type: application/json" -d "{\"bank_code\":\"bni\", \"account_number\":\"123\", \"amount\": 1000, \"remark\":\"TEST\"}" http://0.0.0.0:8080/api/disbursement/disburse.php
-``` 
+```
+Response:
+```
+{"message":"Disbursement was created.","disbursement":{"id":"8586634721","amount":"1000","status":"PENDING","timestamp":"2020-04-17 11:48:07","remark":"TEST","bank_code":"bni","account_number":"123","beneficiary_name":"PT FLIP","receipt":"","time_served":"0000-00-00 00:00:00","fee":"4000"}}
+```
 #### Problem 2: Check Inserted Data
 Run this in your terminal (different terminal from the one you run `php -S 0.0.0.0:8080`) / use Postman:
 ```
 curl http://0.0.0.0:8080/api/disbursement/read.php
-``` 
-#### Problem 3: Check Status and Update Data
-Run this in your terminal (different terminal from the one you run `php -S 0.0.0.0:8080`) / use Postman, please feel `{transaction_id}` (without `{` and `}`) with one of the id from transaction data which you can see using API from problem 2:
 ```
-curl --header "Content-Type: application/json" -d "{\"transaction_id\":{transaction_id}}" http://0.0.0.0:8080/api/disbursement/update.php
-``` 
+Response:
+```
+{"disbursements":[{"id":"8586634721","amount":"1000","status":"PENDING","timestamp":"2020-04-17 11:48:07","remark":"TEST","bank_code":"bni","account_number":"123","beneficiary_name":"PT FLIP","receipt":"","time_served":"0000-00-00 00:00:00","fee":"4000"}]}
+```
+#### Problem 3: Check Status and Update Data
+Run this in your terminal (different terminal from the one you run `php -S 0.0.0.0:8080`) / use Postman to check status and update data:
+```
+curl --header "Content-Type: application/json" -d "{\"transaction_id\":[transaction_id]}" http://0.0.0.0:8080/api/disbursement/update.php
+```
+Please fill `[transaction_id]` (without `[` and `]`) with one of the `id` from transaction data which you can see using API from problem 2.
 For example:
 ```
 curl --header "Content-Type: application/json" -d "{\"transaction_id\":6236433201}" http://0.0.0.0:8080/api/disbursement/update.php
+```
+Response:
+```
+{"message":"Disbursement Updated","disbursement":{"id":"8586634721","amount":"1000","status":"PENDING","timestamp":"2020-04-17 11:48:07","remark":"TEST","bank_code":"bni","account_number":"123","beneficiary_name":"PT FLIP","receipt":"https:\/\/flip-receipt.oss-ap-southeast-5.aliyuncs.com\/debit_receipt\/126316_3d07f9fef9612c7275b3c36f7e1e5762.jpg","time_served":"2020-04-17 11:49:48","fee":"4000"}}
+```
+When you run `curl http://0.0.0.0:8080/api/disbursement/read.php`, you can see that the data for `id: 8586634721` has been updated:
+```
+{"disbursements":[{"id":"8586634721","amount":"1000","status":"PENDING","timestamp":"2020-04-17 11:48:07","remark":"TEST","bank_code":"bni","account_number":"123","beneficiary_name":"PT FLIP","receipt":"https:\/\/flip-receipt.oss-ap-southeast-5.aliyuncs.com\/debit_receipt\/126316_3d07f9fef9612c7275b3c36f7e1e5762.jpg","time_served":"2020-04-17 11:49:48","fee":"4000"}]}
 ```
