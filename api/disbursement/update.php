@@ -3,6 +3,7 @@
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: PUT");
 header("Access-Control-Allow-Credentials: true");
+header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization,X-Requested-With');
 header('Content-Type: application/json');
 // include database and object files
 include_once '../../config/db.php';
@@ -18,6 +19,10 @@ $disbursement = new Disbursement($db);
 
 // Get raw posted data
 $request = json_decode(file_get_contents("php://input"));
+if ($request->transaction_id == null) {
+    echo json_encode(array('message' => 'Error when pulling data from 3rd party.'));
+    die();
+}
 
 $response = json_decode(callAPI(
     'GET',
